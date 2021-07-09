@@ -20,6 +20,15 @@
     <meta name="theme-color" content="#fafafa">
     
     <script src="https://kit.fontawesome.com/4673fadf2d.js" crossorigin="anonymous"></script>
+
+    <style>
+      #navbrand-a {
+        transition: transform .22s;
+      }
+      #navbrand-a:hover {
+        transform: scale(1.5) rotate(2deg) translate(11px); 
+      }
+    </style>
 </head>
 <body>
     <div class="container-md">
@@ -27,7 +36,7 @@
         <div class="row">
             
             <nav class="navbar navbar-expand-sm navbar-light bg-light w-100">
-                <a class="navbar-brand" href="https://nikolav.rs/">nikolav.rs</a>
+                <a id="navbrand-a" class="navbar-brand" href="https://nikolav.rs/">nikolav.rs</a>
                 
                 <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNav-1" aria-controls="collapsibleNav-1"
                     aria-expanded="false" aria-label="Toggle navigation">
