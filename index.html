@@ -28,6 +28,23 @@
       #navbrand-a:hover {
         transform: scale(1.5) rotate(2deg) translate(11px); 
       }
+
+      #utisci_lista {
+        min-height: 240px;
+        /* background-color: lightgray; */
+        overflow-y: auto;
+      }
+      .utisci_komentar {
+        /* overflow-y: auto; */
+      }
+      #utisci_counter {
+      }
+      #h2-komentari-title {
+        text-align: right;
+        border-bottom: 1px solid lightgray;
+        font-style: italic;
+        font-size: 1.22em;
+      }
     </style>
 </head>
 <body>
@@ -72,8 +89,8 @@
         </div>
         
         <div class="row my-5 p-2">
-            <div class="col-md-8 offset-md-2">
-                <p><pre>
+            <div class="col-md-8 offset-md-2 col-lg-5 offset-lg-0">
+                <p><pre class="">
 <strong class="text-muted">#osnovno</strong>
   <em>ime i prezime</em> : nikola vuković
   <em>nacionalnost</em>  : srbija
@@ -89,6 +106,69 @@
   engleski jezik
   rad na računaru
 </pre></p>
+            </div>
+            <div class="col-lg-5 offset-lg-1 pt-3">
+              <h2 id="h2-komentari-title" class="text-muted">komentari</h2>
+              <div id="utisci_lista">
+
+                <p class="utisci_komentar"><span class="komentar_meta"><span class="utisci_user"><strong>Nikola Vuković</strong></span><br><span class="utisci_kontakt"><a href="mailto:vukovicnikola2014@gmail.com">admin@nikolav.rs</a></span><br><span class="utisci_date"><small><em>14/07/2021</em></small></span></span><br><br><span class="komentar_sadrzaj">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt voluptas atque vero!</span><br><br><br></p>
+
+              </div>
+              
+              <div class="toolbar justify-content-center d-flex mt-2">
+                  
+                
+                <div class="btn-group" role="group" aria-label="">
+                    <button id="utisci_first_btn" type="button" class="btn btn-secondary"><i class="fas fa-angle-double-left"></i></button>
+                    <button id="utisci_prev_btn" type="button" class="btn btn-secondary"><i class="fas fa-angle-left"></i></button>
+                    <button type="button" class="btn btn-dark px-3 text-muted"><span id="utisci_counter"></span></button>
+                    <button id="utisci_next_btn" type="button" class="btn btn-secondary"><i class="fas fa-angle-right"></i></button>
+                    <button id="utisci_last_btn" type="button" class="btn btn-secondary"><i class="fas fa-angle-double-right"></i></button>
+                  </div>
+
+                  <!-- Button trigger modal -->
+                  <div class="btn-group pl-2" role="group" aria-label="">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-1"><i class="fas fa-comment-dots"></i></button>
+                  </div>
+                  <!-- Modal -->
+                  <div class="modal fade" id="modal-1" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Ostavite mi poruku na zidu: </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="" id="utisci_form">
+                            <div class="form-group">
+                              <label for="utisci_user">Ime i prezime: *</label>
+                              <input type="text" name="utisci_user" id="utisci_user" class="form-control" placeholder="" required>
+                            </div>
+                            <div class="form-group">
+                              <label for="utisci_email">E-mail adresa:</label>
+                              <input type="email" name="utisci_email" id="utisci_email" class="form-control" placeholder="">
+                            </div>
+                            <div class="form-group">
+                              <label for="utisci_komentar">Vaš komentar: *</label>
+                              <textarea rows="4" name="utisci_komentar" id="utisci_komentar" class="form-control" placeholder="" required></textarea>
+                            </div>
+
+                            <div class="toolbar d-flex justify-content-end">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-power-off"></i></button>
+                              <button type="submit" class="btn btn-primary ml-2"><i class="fas fa-paper-plane"></i></button>
+  
+                            </div>
+  
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+  
+              </div>
+
             </div>
       
         </div>
@@ -111,7 +191,168 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha256-sCElQ8xaSgoxwbWp0eiXMmGZIRa0z94+ffzzO06BqXs=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.0-alpha.4/dist/fancybox.umd.js" integrity="sha256-VJ+EtHmFf9InrML6yWvyMqk00fAK1XxSHZw71WvQryU=" crossorigin="anonymous"></script>
+    <script src="js/cycle2.js"></script>
+    
     <script src="js/cookie_.js"></script>
-  
+
+
+    <script>
+
+  // on doc.ready
+  $(function(){
+
+$('#utisci_first_btn')
+.on('click',function(e){
+   $('#utisci_lista')
+    .cycle('goto',0)
+    .scrollTop(0);
+   return false;
+});
+
+$('#utisci_last_btn')
+.on('click',function(e){
+       var $c = $('#utisci_lista');
+       $c
+        // .cycle('goto', $c.data('cycle.opts').slideCount - 1)
+        .cycle('goto', $c.data('cycle.opts').slideCount - 1)
+        .scrollTop(0);
+       return false;
+});
+
+$('#utisci_form')
+.on('submit',function(e) {
+
+     var fData = {};
+     fData.validation = 'guestbook_utisci';
+     fData.action     = 'utisci_write';
+     fData.user       = $.trim($('#utisci_user').val());
+     fData.email      = $.trim($('#utisci_email').val());
+     fData.komentar   = $.trim($('#utisci_komentar').val());
+
+    if ((fData.user != "") && (fData.komentar != "")) {
+
+       $.ajax({
+         url:'guestbook/guestbook.php',
+         type:'post',
+         data:fData,
+         dataType:'json',
+         success:function(resp, status, xhr){
+             var elem;
+             if (resp.entry_ok == "1") {
+
+                //pise novi komentar
+                //prikazuje ga
+
+                elem = 
+                '<p class="utisci_komentar"><span class="komentar_meta"><span class="utisci_user"><strong>'
+                + resp.komentar.user 
+                +'</strong></span><br/>';
+                
+                if (resp.komentar.kontakt) {
+                   elem += '<span class="utisci_kontakt"><a href="mailto:'+ resp.komentar.kontakt +'">'+ resp.komentar.kontakt +'</a></span><br/>';
+                }
+
+                elem += '<span class="utisci_date"><small><em>'+ resp.komentar.date +'</em></small></span>';
+                elem += '</span>';
+                elem += '<br/><br/>';
+                elem += '<span class="komentar_sadrzaj">'+ resp.komentar.sadrzaj +'</span>';
+                elem += '<br/><br/><br/>';
+                elem += '</p>';
+
+                $('#utisci_lista')
+                 .cycle('add', elem)
+                 .cycle('goto', $('#utisci_lista').data('cycle.opts').slideCount - 1);
+                
+                $("#modal-1").modal('hide');
+                $('#utisci_user, #utisci_email, #utisci_komentar').val("");
+             }
+         }
+       });
+    }
+
+       return false;
+});//end on-form-submit
+
+
+$('#utisci_lista')
+ .on({
+     /*
+      *'cycle-initialized':function(e,o){
+          $(this).cycle('goto',o.slideCount - 1);
+     },
+     */
+     'cycle-next cycle-prev':function(e, o, outgoing, incoming, flag){
+         $('#utisci_lista').scrollTop(0);
+     }
+  });
+
+$.ajax({
+    url:'guestbook/guestbook.php',
+    type:'post',
+    data:{
+      // validation:  'slavica_utisci',
+      validation : 'guestbook_utisci',
+      action     : 'utisci_read'
+   },
+    dataType:'html',
+    success:function(resp, status, xhr) {
+        var last = $(resp).length - 1;
+        $('#utisci_lista')
+         .html(resp) /* render comments*/
+         .cycle({
+            timeout          : 0,
+            fx               : "fade",
+            speed            : 333,
+            next             : "#utisci_next_btn",
+            prev             : "#utisci_prev_btn",
+            caption          : "#utisci_counter",
+            captionTemplate  : "{{slideNum}}/<strong>{{slideCount}}</strong>",
+            slides           : ">.utisci_komentar",
+            startingSlide    : last, 
+            autoHeight       : false, 
+            log              : false
+        });
+
+        setInterval(function(){
+          // console.log(`checking for new comments...`);
+           //proverava da li ima novih komentara
+           //ako ima dodaje ih u listu
+           var fData = {};
+           // fData.validation = 'slavica_utisci';
+           fData.validation = 'guestbook_utisci';
+           fData.action     = 'utisci_read';
+           $.ajax({
+               url:'guestbook/guestbook.php',
+               type:'post',
+               data:fData,
+               dataType:'html',
+               success:function(resp, status, xhr) {
+                  
+                  var $c_new = $(resp)
+                    , $c_old = $('.utisci_komentar','#utisci_lista')
+                    , $c = $('#utisci_lista');
+
+                    // console.log($c_new);
+                    // console.log($c_old);
+                  
+                  if ($c_new.length > $c_old.length) {
+                    //  console.log(`new entry`);
+                     $c_new
+                      .slice($c_old.length - $c_new.length)
+                      .each(function(n,el){
+                          $c.cycle('add',$(this));
+                       });
+                  
+                  }
+               
+               }
+           });
+        }, 12345);
+    }
+});
+});
+
+
+    </script>
 </body>
 </html>
