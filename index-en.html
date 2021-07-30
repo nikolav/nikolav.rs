@@ -28,6 +28,13 @@
       #navbrand-a:hover {
         transform: scale(1.5) rotate(2deg) translate(11px); 
       }
+      .user-nikolav {
+        cursor: pointer;
+      }
+      .user-nikolav:hover {
+        
+      }
+
     </style>
 </head>
 <body>
@@ -84,7 +91,7 @@
             <div class="col-md-8 offset-md-2">
                 <p><pre>
 <strong class="text-muted">#basics</strong>
-  <em>name</em>          : nikola vuković
+  <em>name</em>          : nikola vuković <i class="fas fa-search user-nikolav text-secondary" data-fancybox data-src="./etc/nikolav.me.0.jpg"></i>
   <em>nationality</em>   : serbia
 
 <strong class="text-muted">#contact</strong>
@@ -125,6 +132,7 @@
     $(function () {
       
       var ff;
+      var usernv$ = $('.user-nikolav');
 
       $("#biz_cert")
       .on("click", () => {
@@ -136,6 +144,9 @@
           ]);
           return false;
       });
+
+      usernv$
+      .hover(() => usernv$.toggleClass('text-secondary text-primary'));
 
     });
   </script>

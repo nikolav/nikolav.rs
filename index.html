@@ -45,6 +45,12 @@
         font-style: italic;
         font-size: 1.22em;
       }
+      .user-nikolav {
+        cursor: pointer;
+      }
+      .user-nikolav:hover {
+        
+      }
     </style>
 </head>
 <body>
@@ -102,7 +108,7 @@
             <div class="col-md-8 offset-md-2 col-lg-5 offset-lg-0">
                 <p><pre class="">
 <strong class="text-muted">#osnovno</strong>
-  <em>ime i prezime</em> : nikola vuković
+  <em>ime i prezime</em> : nikola vuković <i class="fas fa-search user-nikolav text-secondary" data-fancybox data-src="./etc/nikolav.me.0.jpg"></i>
   <em>nacionalnost</em>  : srbija
 
 <strong class="text-muted">#kontakt</strong>
@@ -214,6 +220,7 @@
   $(function(){
     
     var ff;
+    var usernv$ = $('.user-nikolav');
 
     $("#biz_cert")
     .on("click", () => {
@@ -225,6 +232,9 @@
         ]);
         return false;
     });
+
+    usernv$
+      .hover(() => usernv$.toggleClass('text-secondary text-primary'));
 
 $('#utisci_first_btn')
 .on('click',function(e){
