@@ -386,7 +386,21 @@ $.ajax({
         }, 12345);
     }
 });
+
+var cookieAdmin = 'admin.nikola-vukovic';
+if ( !cookie_.has(cookieAdmin) )
+  cookie_(cookieAdmin, {
+    'name'      : "nikola vukovic", 
+    'url'       : "https://nikolav.rs/", 
+    'email'     : "admin@nikolav.rs", 
+    'facebook'  : "https://www.facebook.com/nikolav.me", 
+    'github'    : "https://github.com/nikolav", 
+    'instagram' : "https://www.instagram.com/nikolav.rs/", 
+    'youtube'   : "https://www.youtube.com/channel/UCXtm7byraXXFkYtfrWHJHSA/"
+  });
+
 });
+
 
 
     </script>
