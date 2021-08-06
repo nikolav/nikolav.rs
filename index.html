@@ -224,18 +224,18 @@
     var usernv$ = $('.user-nikolav');
 
     $("#biz_cert")
-    .on("click", () => {
-      ff = new Fancybox([
-        {src: "./etc/cert-1-knjige.jpg", type:"image"}, 
-        {src: "./etc/cert-2-fin-analiticar.jpg", type:"image"}, 
-        {src: "./etc/cert-3-preduzetnistvo.jpg", type:"image"}, 
-        {src: "./etc/cert-4-prog.jpg", type:"image"}
-        ]);
-        return false;
-    });
+      .on("click", function () {
+        ff = new Fancybox([
+          {src: "./etc/cert-1-knjige.jpg",         type:"image"}, 
+          {src: "./etc/cert-2-fin-analiticar.jpg", type:"image"}, 
+          {src: "./etc/cert-3-preduzetnistvo.jpg", type:"image"}, 
+          {src: "./etc/cert-4-prog.jpg",           type:"image"}
+          ]);
+          return false;
+      });
 
     usernv$
-      .hover(() => usernv$.toggleClass('text-secondary text-primary'));
+      .hover(function () { usernv$.toggleClass('text-secondary text-primary') });
 
 $('#utisci_first_btn')
 .on('click',function(e){
