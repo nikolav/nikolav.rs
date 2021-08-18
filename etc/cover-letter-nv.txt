@@ -1,0 +1,9 @@
+
+Nikola Vuković is a web developer from Mladenovac, Serbia. He has 12+ years of experience with fullstack web development with a focus on user interfaces, ineraction and data modeling. In his spare time, Vuković Nikola does modern technologies, languages, gymnastics, wine&spirits, business analysis, bookkeeping, history, arts, astrology&tarot, positive life habits, dating, travel, time management, resource planing, logistics, design, and more. 
+
+Никола Вуковић је веб програмер из Младеновца, Србија. Има 12+ година искуства у фуллстак веб развоју са фокусом на кориснички интерфејс и моделирање података. У своје слободно време Вуковић Никола се бави савременим технологијама, језицима, гимнастиком, вином и жестоким пићима, пословном анализом, књиговодством, историјом, уметношћу, астрологијом и таротом, позитивним животним навикама, изласцима, путовањима, управљањем временом, планирањем ресурса, логистиком и дизајном. 
+
+
+--
+email : admin@nikolav.rs
+url   : https://nikolav.rs/
