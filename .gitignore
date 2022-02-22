@@ -177,3 +177,4 @@ Homestead.json
 .phpunit.result.cache
 
 
+src/.config.php

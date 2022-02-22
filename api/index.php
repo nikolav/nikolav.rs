@@ -4,29 +4,17 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../../src/.config.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 
-$container = new \DI\Container();
-AppFactory::setContainer($container);
 $app = AppFactory::create();
-
 
 // Changes to base path handling
 // Up to v3, Slim extracted the base path from the folder where the application was instantiated. This is no longer the case, and the base path must be explicitly declared in case your application is not executed from the root of your domain:
 // https://www.slimframework.com/docs/v4/start/web-servers.html#run-from-a-sub-directory
 $app->setBasePath('/api');
 
-
-$container->set("db", function () {
-    return [
-        "fluentpdo" => null,
-    ];
-});
-
-// $container->set('view', function(\Psr\Container\ContainerInterface $container){
-//     return new \Slim\Views\Twig('');
-// });
 
 // allow cors, json
 $app->add(function ($req, $handler) {
@@ -46,20 +34,76 @@ $app->addRoutingMiddleware();
 
 $app->get('/welcome', function (Request $request, Response $response, $args) {
 
-    $body = [
+    return json_($response, [
         "message"     => "welcome",
         "version"     => "1.0.0",
-        "payload"     => "",
-        "time"        => "",
         "admin.email" => "admin@nikolav.rs",
-    ];
-
-    $response->getBody()
-        ->write(json_encode($body));
-
-    return $response;
+        "time"        => date(DATE_RFC2822),
+    ]);
 });
 
+$app->get("/data", function ($req, $res, $args) {
+
+    $pdo = new PDO(
+        DATABASEMYSQLPDODSN_DB,
+        DATABASEMYSQLPDODSN_USER,
+        DATABASEMYSQLPDODSN_PASSWORD
+    );
+
+    $fluent = new \Envms\FluentPDO\Query($pdo);
+    $data   = $fluent->from("main")->fetchAll();
+
+    return json_($res, ["payload" => $data]);
+});
+
+$app->post("/data", function ($req, $res, $args) {
+
+    $input = $req->getParsedBody();
+    $data = [
+        "id"     => null,
+        "status" => null,
+    ];
+    if (!empty($input["name"]) && !empty($input["value"])) {
+        if (
+            !empty($input["validation"])
+            && VALIDATION_ === $input["validation"]
+        ) {
+            try {
+
+                $pdo = new PDO(
+                    DATABASEMYSQLPDODSN_DB,
+                    DATABASEMYSQLPDODSN_USER,
+                    DATABASEMYSQLPDODSN_PASSWORD
+                );
+
+                $fluent = new \Envms\FluentPDO\Query($pdo);
+                $query  = $fluent->insertInto("main", [
+                    "name"  => $input["name"],
+                    "value" => $input["value"],
+                ]);
+
+                $data["id"]     = $query->execute();
+                $data["status"] = 0;
+
+                $fluent->close();
+            } catch (Exception $err) {
+                $data["status"] = $err->getMessage();
+            }
+        } else {
+            $data["status"] = -1;
+        }
+    }
+
+    return json_($res, $data);
+});
+
+$app->get("/admin", function ($req, $res, $args) {
+    return json_($res, [
+        "name"  => "nikolav",
+        "email" => "admin@nikolav.rs",
+        "url"   => "https://nikolav.rs/",
+    ]);
+});
 
 /**
  * Add Error Handling Middleware
@@ -75,3 +119,13 @@ $app->get('/welcome', function (Request $request, Response $response, $args) {
 $app->addErrorMiddleware(false, true, true);
 
 $app->run();
+
+
+//
+function json_($response, $body)
+{
+    $response->getBody()
+        ->write(json_encode($body));
+
+    return $response;
+}
