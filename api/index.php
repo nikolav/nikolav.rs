@@ -4,7 +4,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use \DI\Container;
-use Slim\Routing\RouteCollectorProxy;
 
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -47,14 +46,14 @@ $app->add(function ($req, $handler) {
  */
 $app->addRoutingMiddleware();
 
-
 $app->get('/welcome', function (Request $request, Response $response, $args) {
 
     $body = [
-        "message" => "welcome",
-        "version" => "1.0.0",
-        "payload" => "",
-        "time"    => "",
+        "message"     => "welcome",
+        "version"     => "1.0.0",
+        "payload"     => "",
+        "time"        => "",
+        "admin.email" => "admin@nikolav.rs",
     ];
 
     $response->getBody()
@@ -75,6 +74,6 @@ $app->get('/welcome', function (Request $request, Response $response, $args) {
  * Note: This middleware should be added last. It will not handle any exceptions/errors
  * for middleware added after it.
  */
-$app->addErrorMiddleware(true, true, true);
+$app->addErrorMiddleware(false, true, true);
 
 $app->run();

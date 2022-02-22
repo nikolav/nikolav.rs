@@ -1,20 +1,19 @@
 {
-  "name": "nikolav/site-api",
-  "autoload": {
-    "psr-4": {
-      "nikolav\\siteapi\\": "src/"
+    "name": "korisnik/50-nikolav.rs",
+    "autoload": {
+        "psr-4": {
+            "nikolav\\siteapi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "nikolav",
+            "email": "admin@nikolav.rs"
+        }
+    ],
+    "require": {
+        "symfony/var-dumper": "5.4.3",
+        "slim/slim": "4.7.0",
+        "slim/psr7": "1.4"
     }
-  },
-  "authors": [
-    {
-      "name": "Nikola Vukovic",
-      "email": "nikolav@users.noreply.github.com"
-    }
-  ],
-  "require": {
-    "slim/slim": "4.*",
-    "slim/psr7": "^1.5",
-    "php-di/php-di": "^6.3", 
-    "envms/fluentpdo": "^2.2.0"
-  }
 }
