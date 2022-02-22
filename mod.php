@@ -4,13 +4,13 @@
 use Symfony\Component\VarDumper\VarDumper;
 use Slim\Factory\AppFactory;
 
-// use Psr\Http\Message\ResponseInterface as Response;
-// use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 
 require __DIR__ . '/../vendor/autoload.php';
 
-// $app = AppFactory::create();
+$app = AppFactory::create();
 
 
 VarDumper::dump([
@@ -20,6 +20,7 @@ VarDumper::dump([
         "AppFactory" => Slim\Factory\AppFactory::class,
         "IRequest"   => Psr\Http\Message\ServerRequestInterface::class,
         "IResponse"  => Psr\Http\Message\ResponseInterface::class,
+        "get_class -app" => get_class($app),
     ],
 ]);
 
