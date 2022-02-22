@@ -1,8 +1,8 @@
 {
-    "name": "korisnik/50-nikolav.rs",
+    "name": "nikolav/siteapi",
     "autoload": {
         "psr-4": {
-            "nikolav\\siteapi\\": "src/"
+            "Nikolav\\Siteapi\\": "src/"
         }
     },
     "authors": [
@@ -13,7 +13,6 @@
     ],
     "require": {
         "symfony/var-dumper": "5.4.3",
-        "slim/slim": "4.7.0",
-        "slim/psr7": "1.4"
+        "slim/slim": "4.8.1"
     }
 }
