@@ -16,8 +16,9 @@ $app = AppFactory::create();
 $app->setBasePath('/api');
 
 
-// allow cors, json
+// cors-json@*
 $app->add(function ($req, $handler) {
+
     $res = $handler->handle($req);
 
     $res = $res->withHeader('Access-Control-Allow-Origin', '*');
@@ -44,13 +45,14 @@ $app->get('/welcome', function (Request $request, Response $response, $args) {
 
 $app->get("/data", function ($req, $res, $args) {
 
-    $pdo = new PDO(
-        DATABASEMYSQLPDODSN_DB,
-        DATABASEMYSQLPDODSN_USER,
-        DATABASEMYSQLPDODSN_PASSWORD
+    $fluent = new \Envms\FluentPDO\Query(
+        new PDO(
+            DATABASEMYSQLPDODSN_DB,
+            DATABASEMYSQLPDODSN_USER,
+            DATABASEMYSQLPDODSN_PASSWORD
+        )
     );
 
-    $fluent = new \Envms\FluentPDO\Query($pdo);
     $data   = $fluent->from("main")->fetchAll();
 
     return json_($res, ["payload" => $data]);
@@ -59,39 +61,42 @@ $app->get("/data", function ($req, $res, $args) {
 $app->post("/data", function ($req, $res, $args) {
 
     $input = $req->getParsedBody();
-    $data = [
+    $data  = [
         "id"     => null,
         "status" => null,
     ];
-    if (!empty($input["name"]) && !empty($input["value"])) {
-        if (
-            !empty($input["validation"])
-            && VALIDATION_ === $input["validation"]
-        ) {
-            try {
 
-                $pdo = new PDO(
+    if (
+        !empty($input["name"])
+        && !empty($input["value"])
+        && !empty($input["validation"])
+        && (VALIDATION_ === $input["validation"])
+    ) {
+
+        try {
+
+            $fluent = new \Envms\FluentPDO\Query(
+                new PDO(
                     DATABASEMYSQLPDODSN_DB,
                     DATABASEMYSQLPDODSN_USER,
                     DATABASEMYSQLPDODSN_PASSWORD
-                );
+                )
+            );
 
-                $fluent = new \Envms\FluentPDO\Query($pdo);
-                $query  = $fluent->insertInto("main", [
-                    "name"  => $input["name"],
-                    "value" => $input["value"],
-                ]);
+            $query  = $fluent->insertInto("main", [
+                "name"  => $input["name"],
+                "value" => $input["value"],
+            ]);
 
-                $data["id"]     = $query->execute();
-                $data["status"] = 0;
+            $data["id"]     = $query->execute();
+            $data["status"] = 0;
 
-                $fluent->close();
-            } catch (Exception $err) {
-                $data["status"] = $err->getMessage();
-            }
-        } else {
-            $data["status"] = -1;
+            $fluent->close();
+        } catch (Exception $err) {
+            $data["status"] = $err->getMessage();
         }
+    } else {
+        $data["status"] = -1;
     }
 
     return json_($res, $data);
